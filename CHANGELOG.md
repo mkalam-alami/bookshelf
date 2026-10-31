@@ -1,5 +1,11 @@
 ## Change Log
 
+**1.2.0-alakajam.1** <small>_Oct 31, 2026_</small> - Alakajam! hotfix on top of 1.2.0
+
+#### Bug fixes
+
+- Fix `save()`/`refresh()` crashing with `Undefined binding(s)` on `hasOne`/`hasMany` models that were eager loaded (`withRelated`), because the shared eager relation data had no parent foreign key: [bookshelf/bookshelf#2046](https://github.com/bookshelf/bookshelf/issues/2046)
+
 **1.2.0** <small>_Jun 07, 2020_</small> - [Diff](https://github.com/bookshelf/bookshelf/compare/1.1.1...1.2.0)
 
 #### Features

@@ -96,6 +96,22 @@ module.exports = function(Bookshelf) {
             .then(checkTest(this));
         });
 
+        it('can save eager loaded "hasOne" and "hasMany" related models (#2046)', function() {
+          return Site.fetchAll({withRelated: ['meta', 'blogs']}).then(function(sites) {
+            var site = sites.find(function(s) {
+              return s.id === 1;
+            });
+            var meta = site.related('meta');
+            var blog = site.related('blogs').at(0);
+
+            return meta
+              .save({description: meta.get('description')})
+              .then(function() {
+                return blog.save({name: blog.get('name')});
+              });
+          });
+        });
+
         it('does not load "hasOne" relationship when it doesn\'t exist (site -> meta)', function() {
           return new Site({id: 3}).fetch({withRelated: ['meta']}).then(function(site) {
             expect(site.toJSON()).to.not.have.property('meta');
